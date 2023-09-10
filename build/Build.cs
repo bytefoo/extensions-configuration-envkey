@@ -14,8 +14,9 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     "ubuntu-latest",
     GitHubActionsImage.UbuntuLatest,
     FetchDepth = 0,
-    OnPushBranchesIgnore = new[] {"main"},
-    InvokedTargets = new[] {nameof(Pack)},
+    //OnPushBranchesIgnore = new[] {"main"},
+    OnPushBranches = new[] { "main" },
+    InvokedTargets = new[] {nameof(Push)},
     EnableGitHubToken = true,
     PublishArtifacts = false,
     ImportSecrets = new[] { nameof(NuGetApiKey) }
