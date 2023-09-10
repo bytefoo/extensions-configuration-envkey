@@ -19,7 +19,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     InvokedTargets = new[] {nameof(Push)},
     EnableGitHubToken = true,
     PublishArtifacts = false,
-    ImportSecrets = new[] { nameof(NuGetApiKey) }
+    ImportSecrets = new[] { "NUGET_PUBLISH_KEY" }
     )]
 [DotNetVerbosityMapping]
 [ShutdownDotNetAfterServerBuild]
