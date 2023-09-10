@@ -3,6 +3,8 @@
 based on: https://github.com/Azure/AppConfiguration-DotnetProvider
 
 ```
+using ByteFoo.Extensions.Configuration.EnvKey;
+
 c.AddEnvKeyConfiguration(e =>
         {
             e.Connect("envKey")
