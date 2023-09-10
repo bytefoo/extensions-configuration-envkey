@@ -39,5 +39,5 @@ jobs:
       - name: 'Run: Push'
         run: ./build.cmd Push
         env:
-          NuGetApiKey: ${{ secrets.NUGET_API_KEY }}
+          NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
