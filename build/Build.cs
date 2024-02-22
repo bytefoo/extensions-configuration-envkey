@@ -63,7 +63,6 @@ class Build : NukeBuild
                 select (project,framework);
 
             DotNetPublish(_ => _
-                
                 .SetConfiguration(Configuration)
                 .SetRepositoryUrl(GitRepository.HttpsUrl)
                 .SetNoRestore(SucceededTargets.Contains(Restore))
