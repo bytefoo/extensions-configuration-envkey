@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
@@ -55,8 +57,13 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .EnableNoRestore());
 
+            var frameworks = from project in Solution.Projects
+                from framework in project.GetTargetFrameworks()
+                where project.Name == "ByteFoo.Extensions.Configuration.EnvKey"
+                select (project,framework);
+
             DotNetPublish(_ => _
-                .SetOutput(ArtifactsDirectory)
+                
                 .SetConfiguration(Configuration)
                 .SetRepositoryUrl(GitRepository.HttpsUrl)
                 .SetNoRestore(SucceededTargets.Contains(Restore))
@@ -67,6 +74,9 @@ class Build : NukeBuild
                 .EnableNoLogo()
                 .When(IsServerBuild, _ => _
                     .EnableContinuousIntegrationBuild())
+                .CombineWith(frameworks, (_, v) => _
+                    .SetOutput(ArtifactsDirectory / v.framework)
+                    .SetFramework(v.framework))
             );
         });
 
