@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Enumeration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -64,10 +63,18 @@ namespace ByteFoo.Extensions.Configuration.EnvKey
             {
                 foreach (var keyValueSelector in _options.KeyValueSelectors)
                 {
+#if NETSTANDARD2_0
                     if (FileSystemName.MatchesSimpleExpression(keyValueSelector.KeyFilter.AsSpan(), kvp.Key.AsSpan()))
                     {
                         filteredConfig[kvp.Key] = kvp.Value;
                     }
+#else
+                    if (System.IO.Enumeration.FileSystemName.MatchesSimpleExpression(
+                            keyValueSelector.KeyFilter.AsSpan(), kvp.Key.AsSpan()))
+                    {
+                        filteredConfig[kvp.Key] = kvp.Value;
+                    }
+#endif
                 }
             }
 
